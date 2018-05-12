@@ -11,6 +11,13 @@ create table userInfo
 	isBakery		bit			not null
 );
 
+create table store
+(
+	id				int			primary key			identity(1,1),
+	storeName		varchar(50) not null,
+
+);
+
 create table bakeryOrder
 (
 	id				int			primary key			identity(1,1),
@@ -26,8 +33,11 @@ create table bakeryOrder
 	borderTrim		varchar(100) null,
 	kitNumber		int			 null,
 	kitName			varchar(100) null,
+	isActive		bit			 not null,
+	storeId			int			 not null,
 
-	constraint fk_bakeryOrder_userInfo foreign key (userInfoId) references userInfo(id)
+	constraint fk_bakeryOrder_userInfo foreign key (userInfoId) references userInfo(id),
+	constraint fk_bakeryOrder_store    foreign key (storeId) references store(id)
 );
 
 create table deliOrder
@@ -39,6 +49,16 @@ create table deliOrder
 	pickUpTime		dateTime    not null,
 	userInfoId		int			not null,
 	numberOfPieces  int			not null,
+	isActive		bit			 not null,
+	storeId			int			 not null,
 
-	constraint fk_deliOrder_userInfo foreign key (userInfoId) references userInfo(id)
+	constraint fk_deliOrder_userInfo foreign key (userInfoId) references userInfo(id),
+	constraint fk_deliOrder_store	 foreign key (storeId) references store(id)
 );
+
+
+insert into store values('Sheffield Lake');
+insert into store values('Lorain');
+insert into store values('Sheffield Center');
+insert into store values('Elyria');
+insert into store values('Village Market');
