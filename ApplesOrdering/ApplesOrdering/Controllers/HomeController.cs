@@ -81,11 +81,10 @@ namespace ApplesOrdering.Controllers
             return View("LoginRegister");
         }
 
-        public ActionResult Contact()
+        public ActionResult Orders()
         {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
+            return View("Orders");
         }
     }
 }

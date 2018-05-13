@@ -1,22 +1,36 @@
 ﻿@using ApplesOrdering.Models;
 
-@{ 
+@{
+    /**/
 
-    UserInfoModel user = Session["User"] as UserInfoModel;
+    UserInfoModel user = new UserInfoModel();
+
+    if (Session["User"] != null)
+    {
+        user = Session["User"] as UserInfoModel;
+    }
+
 }
+<h1 class="text-center">Welcome to Apples Ordering!</h1>
+
 @if (user.IsAdmin)
 {
-
+    <div class="btn btn-block btn-danger">
+        Show All Stores Orders
+    </div>
 }
-else if(user.IsBakery)
+else if (user.IsBakery)
 {
-
+    <div class="btn btn-block btn-danger">
+        View Bakery Orders
+    </div>
 }
 else if (user.IsDeli)
 {
-
+    <div class="btn btn-block btn-danger">
+        View Deli Orders
+    </div>
 }
 else
 {
-
 }

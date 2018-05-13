@@ -83,6 +83,8 @@ namespace ApplesOrdering.DAL
                         user.FirstName = Convert.ToString(reader["firstName"]);
                         user.Id = Convert.ToInt32(reader["id"]);
                         user.IsAdmin = Convert.ToBoolean(reader["isAdmin"]);
+                        user.IsBakery = Convert.ToBoolean(reader["isBakery"]);
+                        user.IsDeli = Convert.ToBoolean(reader["isDeli"]);
                         user.LastName = Convert.ToString(reader["lastName"]);
                         user.Password = Convert.ToString(reader["password"]);
                     }
