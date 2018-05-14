@@ -15,22 +15,28 @@
 
 @if (user.IsAdmin)
 {
-    <div class="btn btn-block btn-danger">
-        Show All Stores Orders
-    </div>
+    <a href="@Url.Action("Orders", "Home")">
+        <div class="btn btn-block btn-danger">
+            Show All Stores Orders
+        </div>
+    </a>
 }
 else if (user.IsBakery)
 {
-    <div class="btn btn-block btn-danger">
-        View Bakery Orders
-    </div>
+    <a href="@Url.Action("Orders", "Home")">
+        <div class="btn btn-block btn-danger">
+            View Bakery Orders
+        </div>
+    </a>
 }
 else if (user.IsDeli)
 {
-    <div class="btn btn-block btn-danger">
-        View Deli Orders
-    </div>
-}
-else
-{
-}
+    <a href="@Url.Action("Orders", "Home")">
+        <div class="btn btn-block btn-danger">
+            View Deli Orders
+        </div>
+    </a>
+    }
+    else
+    {
+    }
