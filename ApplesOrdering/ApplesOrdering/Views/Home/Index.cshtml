@@ -15,7 +15,7 @@
 
 @if (user.IsAdmin)
 {
-    <a href="@Url.Action("Orders", "Home")">
+    <a href="@Url.Action("Orders", "Home", new { permissionLevel = 1 })">
         <div class="btn btn-block btn-danger">
             Show All Stores Orders
         </div>
@@ -23,7 +23,7 @@
 }
 else if (user.IsBakery)
 {
-    <a href="@Url.Action("Orders", "Home")">
+    <a href="@Url.Action("Orders", "Home", new { permissionLevel = 2 })">
         <div class="btn btn-block btn-danger">
             View Bakery Orders
         </div>
@@ -31,12 +31,12 @@ else if (user.IsBakery)
 }
 else if (user.IsDeli)
 {
-    <a href="@Url.Action("Orders", "Home")">
+    <a href="@Url.Action("Orders", "Home", new { permissionLevel = 3 })">
         <div class="btn btn-block btn-danger">
             View Deli Orders
         </div>
     </a>
-    }
-    else
-    {
-    }
+}
+else
+{
+}

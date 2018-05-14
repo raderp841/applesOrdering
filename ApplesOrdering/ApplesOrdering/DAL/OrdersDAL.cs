@@ -15,6 +15,8 @@ namespace ApplesOrdering.DAL
         private string getDeliOrdersForStore_SQL = "select * from deliOrder where storeId = @storeId;";
         private string addOrderBakery_SQL = "insert into bakeryOrder values (@orderName, @phoneNumber, GETDATE(), @pickUpTime, @userInfoId, @size, @dough, @icing, @messageInfo, @borderTrim, @kitNumber, @kitName, 1, @storeId);";
         private string addOrderDeli_SQL = "insert into deliOrder values ('@orderName','@phoneNumber', GETDATE(), @pickUpTime, @userInfoId, @numberOfPieces, 1, @storeId);";
+        private string getAllBakeryOrders_SQL = "select * from bakeryOrder;";
+        private string geetAllDeliOrders_SQL = "select * from deliOrder;";
 
         public List<BakeryOrderModel> GetAllBakeryOrdersForStore(int storeId)
         {
@@ -124,14 +126,14 @@ namespace ApplesOrdering.DAL
                     int rowsAffected = cmd.ExecuteNonQuery();
                     return rowsAffected > 0;
                 }
-}
-            catch(SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 throw;
             }
         }
 
-        public bool SaveDeliOrder (DeliOrderModel order)
+        public bool SaveDeliOrder(DeliOrderModel order)
         {
             try
             {
@@ -139,23 +141,58 @@ namespace ApplesOrdering.DAL
                 {
 
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(addOrderBakery_SQL, conn);
+                    SqlCommand cmd = new SqlCommand(addOrderDeli_SQL, conn);
                     cmd.Parameters.AddWithValue("@orderName", order.OrderName);
                     cmd.Parameters.AddWithValue("@phoneNumber", order.PhoneNumber);
                     cmd.Parameters.AddWithValue("@pickUpTime", order.PickUpTime);
                     cmd.Parameters.AddWithValue("@userInfoId", order.UserInfoId);
                     cmd.Parameters.AddWithValue("@numberOfPieces", order.NumberOfPieces);
-                   cmd.Parameters.AddWithValue("@storeId", order.StoreId);
+                    cmd.Parameters.AddWithValue("@storeId", order.StoreId);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
                     return rowsAffected > 0;
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 throw;
             }
         }
+
+        public List<BakeryOrderModel> GetAllBakeryOrders()
+        {
+            List<BakeryOrderModel> orders = new List<BakeryOrderModel>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+            return orders;
+        }
+
+        public List<DeliOrderModel> GetAllDeliOrders()
+        {
+            List<DeliOrderModel> orders = new List<DeliOrderModel>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+            return orders;
+        }
+
 
     }
 }
