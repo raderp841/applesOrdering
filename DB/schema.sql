@@ -54,7 +54,7 @@ create table deliOrder
 
 	constraint fk_deliOrder_userInfo foreign key (userInfoId) references userInfo(id),
 	constraint fk_deliOrder_store	 foreign key (storeId) references store(id)
-);
+); 
 
 
 insert into store values('Sheffield Lake');

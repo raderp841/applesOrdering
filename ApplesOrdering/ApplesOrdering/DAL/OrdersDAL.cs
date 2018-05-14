@@ -11,9 +11,10 @@ namespace ApplesOrdering.DAL
     public class OrdersDAL
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["DB"].ConnectionString;
-
         private string getBakeryOrdersForStore_SQL = "select * from bakeryOrder where storeId = @storeId;";
         private string getDeliOrdersForStore_SQL = "select * from deliOrder where storeId = @storeId;";
+        private string addOrderBakery_SQL = "insert into bakeryOrder values (@orderName, @phoneNumber, GETDATE(), @pickUpTime, @userInfoId, @size, @dough, @icing, @messageInfo, @borderTrim, @kitNumber, @kitName, 1, @storeId);";
+        private string addOrderDeli_SQL = "insert into deliOrder values ('@orderName','@phoneNumber', GETDATE(), @pickUpTime, @userInfoId, @numberOfPieces, 1, @storeId);";
 
         public List<BakeryOrderModel> GetAllBakeryOrdersForStore(int storeId)
         {
@@ -95,6 +96,65 @@ namespace ApplesOrdering.DAL
                 throw;
             }
             return output;
+        }
+
+        public bool SaveBakeryOrder(BakeryOrderModel order)
+        {
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(addOrderBakery_SQL, conn);
+                    cmd.Parameters.AddWithValue("@orderName", order.OrderName);
+                    cmd.Parameters.AddWithValue("@phoneNumber", order.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@pickUpTime", order.PickupTime);
+                    cmd.Parameters.AddWithValue("@userInfoId", order.UserInfoId);
+                    cmd.Parameters.AddWithValue("@size", order.Size);
+                    cmd.Parameters.AddWithValue("@dough", order.Dough);
+                    cmd.Parameters.AddWithValue("@icing", order.Icing);
+                    cmd.Parameters.AddWithValue("@messageInfo", order.MessageInfo);
+                    cmd.Parameters.AddWithValue("@borderTrim", order.BorderTrim);
+                    cmd.Parameters.AddWithValue("@kitNumber", order.KitNumber);
+                    cmd.Parameters.AddWithValue("@kitName", order.Kitname);
+                    cmd.Parameters.AddWithValue("@storeId", order.StoreId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+}
+            catch(SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public bool SaveDeliOrder (DeliOrderModel order)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(addOrderBakery_SQL, conn);
+                    cmd.Parameters.AddWithValue("@orderName", order.OrderName);
+                    cmd.Parameters.AddWithValue("@phoneNumber", order.PhoneNumber);
+                    cmd.Parameters.AddWithValue("@pickUpTime", order.PickUpTime);
+                    cmd.Parameters.AddWithValue("@userInfoId", order.UserInfoId);
+                    cmd.Parameters.AddWithValue("@numberOfPieces", order.NumberOfPieces);
+                   cmd.Parameters.AddWithValue("@storeId", order.StoreId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+            catch(SqlException ex)
+            {
+                throw;
+            }
         }
 
     }
