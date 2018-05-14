@@ -81,10 +81,29 @@ namespace ApplesOrdering.Controllers
             return View("LoginRegister");
         }
 
-        public ActionResult Orders()
+        public ActionResult Orders(int permissionLevel)
         {
+            AllOrdersModel orders = new AllOrdersModel();
+            OrdersDAL dal = new OrdersDAL();
+            orders.User = Session["User"] as UserInfoModel;
 
-            return View("Orders");
+            //admin
+            if (permissionLevel == 1)
+            {
+                orders.DeliOrders = dal.GetAllDeliOrders();
+                orders.BakeryOrders = dal.GetAllBakeryOrders();
+            }
+            //bakery
+            else if (permissionLevel == 2)
+            {
+                orders.BakeryOrders = dal.GetAllBakeryOrders();
+            }
+            //deli
+            else if (permissionLevel == 3)
+            {
+                orders.DeliOrders = dal.GetAllDeliOrders();
+            }
+            return View("Orders", orders);
         }
     }
 }

@@ -15,8 +15,9 @@ namespace ApplesOrdering.DAL
         private string getDeliOrdersForStore_SQL = "select * from deliOrder where storeId = @storeId;";
         private string addOrderBakery_SQL = "insert into bakeryOrder values (@orderName, @phoneNumber, GETDATE(), @pickUpTime, @userInfoId, @size, @dough, @icing, @messageInfo, @borderTrim, @kitNumber, @kitName, 1, @storeId);";
         private string addOrderDeli_SQL = "insert into deliOrder values ('@orderName','@phoneNumber', GETDATE(), @pickUpTime, @userInfoId, @numberOfPieces, 1, @storeId);";
+        private string getAllDeliOrders_SQL = "select * from deliOrder;";
         private string getAllBakeryOrders_SQL = "select * from bakeryOrder;";
-        private string geetAllDeliOrders_SQL = "select * from deliOrder;";
+        
 
         public List<BakeryOrderModel> GetAllBakeryOrdersForStore(int storeId)
         {
@@ -167,6 +168,32 @@ namespace ApplesOrdering.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(getAllBakeryOrders_SQL, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        BakeryOrderModel order = new BakeryOrderModel();
+
+                        order.Dough = Convert.ToString(reader["dough"]);
+                        order.BorderTrim = Convert.ToString(reader["borderTrim"]);
+                        order.Icing = Convert.ToString(reader["icing"]);
+                        order.Id = Convert.ToInt32(reader["id"]);
+                        order.IsActive = Convert.ToBoolean(reader["isActive"]);
+                        order.Kitname = Convert.ToString(reader["kitName"]);
+                        order.KitNumber = Convert.ToInt32(reader["kitNumber"]);
+                        order.MessageInfo = Convert.ToString(reader["messageInfo"]);
+                        order.PhoneNumber = Convert.ToString(reader["phoneNumber"]);
+                        order.OrderName = Convert.ToString(reader["orderName"]);
+                        order.OrderTime = Convert.ToDateTime(reader["orderTime"]);
+                        order.PickupTime = Convert.ToDateTime(reader["pickUpTime"]);
+                        order.Size = Convert.ToString(reader["size"]);
+                        order.StoreId = Convert.ToInt32(reader["storeId"]);
+                        order.UserInfoId = Convert.ToInt32(reader["userInfoId"]);
+
+                        orders.Add(order);
+                    }
                 }
             }
             catch (SqlException ex)
@@ -184,6 +211,26 @@ namespace ApplesOrdering.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(getAllDeliOrders_SQL, conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DeliOrderModel order = new DeliOrderModel();
+
+                        order.Id = Convert.ToInt32(reader["id"]);
+                        order.IsActive = Convert.ToBoolean(reader["isActive"]);
+                        order.NumberOfPieces = Convert.ToInt32(reader["numberOfPieces"]);
+                        order.OrderName = Convert.ToString(reader["orderName"]);
+                        order.PhoneNumber = Convert.ToString(reader["phoneNumber"]);
+                        order.OrderTime = Convert.ToDateTime(reader["orderTime"]);
+                        order.PickUpTime = Convert.ToDateTime(reader["pickUpTime"]);
+                        order.StoreId = Convert.ToInt32(reader["storeId"]);
+                        order.UserInfoId = Convert.ToInt32(reader["userInfoId"]);
+
+                        orders.Add(order);
+                    }
                 }
             }
             catch (SqlException ex)

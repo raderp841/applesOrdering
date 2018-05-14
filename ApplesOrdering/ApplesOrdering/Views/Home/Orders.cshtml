@@ -1,8 +1,16 @@
-﻿
+﻿@using ApplesOrdering.Models;
+@model AllOrdersModel
 @{
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Orders</h2>
-
+@foreach (var kvp in Model.BakeryOrders)
+{
+    <p>@kvp.OrderName</p>
+}
+@foreach (var kvp in Model.DeliOrders)
+{
+    <p>@kvp.NumberOfPieces</p>
+}
