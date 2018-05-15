@@ -22,3 +22,15 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.order-table {
+    border-left: 2px solid black;
+}
+
+.active-order {
+    background-color: lightgreen;
+}
+
+.completed-order {
+    background-color: lightcoral;
+}

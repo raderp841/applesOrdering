@@ -5,12 +5,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Orders</h2>
+<h1 class="text-center">Orders</h1>
+<hr />
+<h3 class="text-center">Bakery Orders</h3>
 @foreach (var kvp in Model.BakeryOrders)
 {
-    <p>@kvp.OrderName</p>
+    <table style="width: 100%" cellspacing="50">
+        <tr>
+            <th class="text-center">Name</th>
+            <th class="text-center">When Ordered</th>
+            <th class="text-center">Pick Up Time</th>
+            <th class="text-center">Details</th>
+        </tr>
+        <tr>
+            <td class="order-table text-center">@kvp.OrderName</td>
+            <td class="order-table text-center">@kvp.OrderTime.ToString("d")</td>
+            <td class="order-table text-center">@kvp.PickupTime</td>
+            <td class="order-table text-center"><a> View Details Of Order</a></td>
+        </tr>
+    </table>
 }
-@foreach (var kvp in Model.DeliOrders)
-{
-    <p>@kvp.NumberOfPieces</p>
-}
+<hr />
+<h3 class="text-center">Deli Orders</h3>
+<table style="width: 100%" cellspacing="50">
+    <tr>
+        <th class="text-center">Name</th>
+        <th class="text-center">When Ordered</th>
+        <th class="text-center">Pick Up time</th>
+        <th class="text-center">Details</th>
+    </tr>
+    @foreach (var kvp in Model.DeliOrders)
+    {
+        if (kvp.IsActive)
+        {
+            <tr class="active-order">
+                <td class="order-table text-center">@kvp.OrderName</td>
+                <td class="order-table text-center">@kvp.OrderTime</td>
+                <td class="order-table text-center">@kvp.PickUpTime</td>
+                <td class="order-table text-center"><a>View Detials Of Order</a></td>
+            </tr>
+        }
+        else
+        {
+            <tr class="completed-order">
+                <td class="order-table text-center">@kvp.OrderName</td>
+                <td class="order-table text-center">@kvp.OrderTime</td>
+                <td class="order-table text-center">@kvp.PickUpTime</td>
+                <td class="order-table text-center"><a>View Detials Of Order</a></td>
+            </tr>
+        }
+    }
+</table>
+
