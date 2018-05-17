@@ -27,7 +27,7 @@
 }
 <hr />
 <h3 class="text-center">Deli Orders</h3>
-<table style="width: 100%" cellspacing="50">
+<table style="width: 100%" cellspacing="50" class="tabletable">
     <tr>
         <th class="text-center">Name</th>
         <th class="text-center">When Ordered</th>
@@ -42,7 +42,7 @@
                 <td class="order-table text-center">@kvp.OrderName</td>
                 <td class="order-table text-center">@kvp.OrderTime</td>
                 <td class="order-table text-center">@kvp.PickUpTime</td>
-                <td class="order-table text-center"><a>View Detials Of Order</a></td>
+                <td class="order-table text-center"><a onclick="find(@kvp.Id)">View Detials Of Order</a></td>
             </tr>
         }
         else
@@ -51,9 +51,33 @@
                 <td class="order-table text-center">@kvp.OrderName</td>
                 <td class="order-table text-center">@kvp.OrderTime</td>
                 <td class="order-table text-center">@kvp.PickUpTime</td>
-                <td class="order-table text-center"><a>View Detials Of Order</a></td>
+                <td class="order-table text-center"><a onclick="find(@kvp.Id)">View Detials Of Order</a></td>
             </tr>
         }
     }
 </table>
 
+
+<script type="text/javascript">
+    var uri = '../api/orders';
+
+    function formatItem(item) {
+        return item.PhoneNumber;
+    }
+
+    function find(id) {
+        console.log(id);
+        $.getJSON(uri + '/' + id)
+            .done(function (data) {
+
+                $.each(data, function (key, item) {
+                    $('<h2>',
+                        {
+                            text: formatItem(item)
+                        })
+                        .appendTo($('.tabletable'))
+                });
+            });
+    }
+    
+</script>
