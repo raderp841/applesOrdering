@@ -1,0 +1,58 @@
+﻿@using ApplesOrdering.Models;
+@model BakeryOrderModel
+@{
+    ViewBag.Title = "BakeryOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>BakeryOrder</h2>
+
+<form class="form-horizontal" action="@Url.Action("BakeryOrder", "Home")" method="post">
+
+    <div class="form-group">
+        <label for="OrderName">Pickup Name</label>
+        <input type="text" name="OrderName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="PhoneNumber">Phone Number</label>
+        <input type="tel" name="Phone Number" class="form-control"  pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}"/>
+    </div>
+    <div class="form-group">
+        <label for="PickupTime">Pickup Time</label>
+        <input type="datetime-local" name="PickupTime" class="form-control" />
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Size)
+        @Html.TextBoxFor(m => m.Size)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Dough)
+        @Html.TextBoxFor(m => m.Dough)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Icing)
+        @Html.TextBoxFor(m => m.Icing)
+    </div>
+    <div class="form-group">
+        Border and Trim:
+        @Html.TextBoxFor(m => m.BorderTrim)
+    </div>
+    <div class="form-group">
+        Message/Special Instructions:
+        @Html.TextAreaFor(m => m.MessageInfo)
+    </div>
+    <div class="form-group">
+        Kit Name:
+        @Html.TextBoxFor(m => m.Kitname)
+    </div>
+    <div class="form-group">
+        Kit Number:
+        @Html.TextBoxFor(m => m.KitNumber)
+    </div>
+    <div class="form-group">
+        Pickup Store:
+        @Html.TextBoxFor(m => m.StoreId)
+    </div>
+
+    <button type="submit">Submit</button>
+</form>

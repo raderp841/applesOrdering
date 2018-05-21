@@ -84,7 +84,10 @@
 
                     $('<span>',
                         {
-                            text: '&times;'
+                            text: 'X',
+                            click: function () {
+                                this.parentElement.parentElement.remove();
+                            }
                         })
                         .appendTo($('.tabletable').next().children().last()).addClass('close');
 
@@ -121,5 +124,7 @@
                 });
             });
     }
+
+
     
 </script>

@@ -18,6 +18,7 @@ namespace ApplesOrdering.DAL
         private string getAllDeliOrders_SQL = "select * from deliOrder;";
         private string getAllBakeryOrders_SQL = "select * from bakeryOrder;";
         private string getDeliOrderById = "select * from deliOrder where id = @id;";
+       
 
         public List<BakeryOrderModel> GetAllBakeryOrdersForStore(int storeId)
         {

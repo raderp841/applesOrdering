@@ -105,5 +105,20 @@ namespace ApplesOrdering.Controllers
             }
             return View("Orders", orders);
         }
+
+        public ActionResult BakeryOrder()
+        {
+            BakeryOrderModel model = new BakeryOrderModel();
+            return View("BakeryOrder", model);
+        }
+
+        [HttpPost]
+        public ActionResult BakeryOrder(BakeryOrderModel order)
+        {
+            OrdersDAL dal = new OrdersDAL();
+            dal.SaveBakeryOrder(order);
+
+            return RedirectToAction("Index");
+        }
     }
 }
