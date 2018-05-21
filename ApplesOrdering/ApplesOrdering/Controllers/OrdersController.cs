@@ -16,7 +16,7 @@ namespace ApplesOrdering.Controllers
             var output =new DeliOrderModel();
             OrdersDAL dal = new OrdersDAL();
             List<DeliOrderModel> orders = dal.GetAllDeliOrders();
-            for(int i = 0; i < orders.Count; i++)
+            for(int i = 0; i < orders.Count; i++) 
             {
                 if(orders[i].Id == id)
                 {

@@ -71,11 +71,53 @@
             .done(function (data) {
 
                 $.each(data, function (key, item) {
-                    $('<h2>',
+                    $('<div>',
                         {
-                            text: formatItem(item)
+                            id: 'myModal'
                         })
-                        .appendTo($('.tabletable'))
+                        .insertAfter($('.tabletable')).addClass('modal');
+
+                    $('<div>',
+                        {
+                        })
+                        .appendTo($('.tabletable').next()).addClass('modal-content');
+
+                    $('<span>',
+                        {
+                            text: '&times;'
+                        })
+                        .appendTo($('.tabletable').next().children().last()).addClass('close');
+
+                    $('<ul>',
+                        {
+
+                        })
+                        .appendTo($('.tabletable').next().children().last());
+
+                    $('<li>',
+                        {
+                            text: 'Name: ' + item.OrderName
+                        })
+                        .appendTo($('.tabletable').next().children().children().last());
+
+                    $('<li>',
+                        {
+                            text: 'Phone Number: ' + item.PhoneNumber
+                        })
+                        .appendTo($('.tabletable').next().children().children().last());
+
+                    $('<li>',
+                        {
+                            text: 'Number of Pieces: ' + item.NumberOfPieces
+                        })
+                        .appendTo($('.tabletable').next().children().children().last());
+
+                    $('<li>',
+                        {
+                            text: 'Pickup Time: ' + item.PickUpTime
+                        })
+                        .appendTo($('.tabletable').next().children().children().last());
+                        
                 });
             });
     }
