@@ -115,6 +115,11 @@ namespace ApplesOrdering.Controllers
         [HttpPost]
         public ActionResult BakeryOrder(BakeryOrderModel order)
         {
+            if(order.Kitname == null)
+            {
+                order.Kitname = "n/a";
+            }
+          
             OrdersDAL dal = new OrdersDAL();
             dal.SaveBakeryOrder(order);
 

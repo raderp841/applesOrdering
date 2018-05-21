@@ -14,7 +14,7 @@ namespace ApplesOrdering.DAL
         private string getBakeryOrdersForStore_SQL = "select * from bakeryOrder where storeId = @storeId;";
         private string getDeliOrdersForStore_SQL = "select * from deliOrder where storeId = @storeId;";
         private string addOrderBakery_SQL = "insert into bakeryOrder values (@orderName, @phoneNumber, GETDATE(), @pickUpTime, @userInfoId, @size, @dough, @icing, @messageInfo, @borderTrim, @kitNumber, @kitName, 1, @storeId);";
-        private string addOrderDeli_SQL = "insert into deliOrder values ('@orderName','@phoneNumber', GETDATE(), @pickUpTime, @userInfoId, @numberOfPieces, 1, @storeId);";
+        private string addOrderDeli_SQL = "insert into deliOrder values (@orderName, @phoneNumber, GETDATE(), @pickUpTime, @userInfoId, @numberOfPieces, 1, @storeId);";
         private string getAllDeliOrders_SQL = "select * from deliOrder;";
         private string getAllBakeryOrders_SQL = "select * from bakeryOrder;";
         private string getDeliOrderById = "select * from deliOrder where id = @id;";
