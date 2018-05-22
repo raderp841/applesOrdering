@@ -1,21 +1,21 @@
 ﻿@using ApplesOrdering.Models;
-@model BakeryOrderModel
+@model DeliOrderModel
 @{
-    ViewBag.Title = "BakeryOrder";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     UserInfoModel user = new UserInfoModel();
+    ViewBag.Title = "DeliOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     if (Session["User"] != null)
     {
         user = Session["User"] as UserInfoModel;
     }
+
 }
 
-<h2>BakeryOrder</h2>
+<h2>DeliOrder</h2>
 
 @if (Session["User"] != null)
 {
-    <form class="" action="@Url.Action("BakeryOrder", "Home")" method="post">
-
+    <form action="@Url.Action("DeliOrder", "Home")" method="post">
         <div class="form-group col-md-6">
             <label for="OrderName">Pickup Name</label>
             <input type="text" name="OrderName" class="form-control" required />
@@ -25,36 +25,12 @@
             <input type="tel" name="PhoneNumber" class="form-control" required />
         </div>
         <div class="form-group col-md-6">
-            <label for="PickupTime">Pickup Time</label>
-            <input type="datetime-local" name="PickupTime" class="form-control" required />
+            <label for="PickUpTime">Pickup Time</label>
+            <input type="datetime-local" name="PickUpTime" class="form-control" required />
         </div>
         <div class="form-group col-md-6">
-            <label for="Size">Size</label>
-            <input type="text" name="Size" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="Dough">Dough Type</label>
-            <input type="text" name="Dough" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="Icing">Icing</label>
-            <input type="text" name="Icing" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="BorderTrim">Border and Trim</label>
-            <input type="text" name="BorderTrim" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="MessageInfo">Message and Special Instructions</label>
-            <textarea name="MessageInfo" class="form-control"></textarea>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="Kitname">Kit Name</label>
-            <input type="text" name="Kitname" class="form-control" />
-        </div>
-        <div class="form-group col-md-6">
-            <label for="KitNumber">Kit Number</label>
-            <input type="number" name="KitNumber" class="form-control" />
+            <label for="NumberOfPieces">Number Of Pieces</label>
+            <input type="number" name="NumberOfPieces" class="form-control" />
         </div>
         <div class="form-group col-md-6">
             <label for="StoreId">Pickup Location</label>
@@ -66,7 +42,6 @@
                 <option value="4">Elyria</option>
                 <option value="5">Village Market</option>
                 <option value="6">Wellington Apples</option>
-
             </select>
         </div>
         <input type="hidden" name="UserInfoId" value="@user.Id" />
@@ -82,5 +57,5 @@ else
         <div class="btn btn-danger">
             Login/Register
         </div>
-    </a>
+    </a> 
 }

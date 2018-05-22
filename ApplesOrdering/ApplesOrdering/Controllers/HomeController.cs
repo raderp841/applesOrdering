@@ -33,7 +33,7 @@ namespace ApplesOrdering.Controllers
                 UserInfoModel model = new UserInfoModel();
                 return View("LoginRegister", model);
             }
-           
+
         }
 
         [HttpPost]
@@ -81,25 +81,25 @@ namespace ApplesOrdering.Controllers
             return View("LoginRegister");
         }
 
-        public ActionResult Orders(int permissionLevel)
+        public ActionResult Orders(int permissionLevel = 0)
         {
             AllOrdersModel orders = new AllOrdersModel();
             OrdersDAL dal = new OrdersDAL();
             orders.User = Session["User"] as UserInfoModel;
 
             //admin
-            if (permissionLevel == 1)
+            if (permissionLevel == 1 || orders.User.IsAdmin)
             {
                 orders.DeliOrders = dal.GetAllDeliOrders();
                 orders.BakeryOrders = dal.GetAllBakeryOrders();
             }
             //bakery
-            else if (permissionLevel == 2)
+            else if (permissionLevel == 2 || orders.User.IsBakery)
             {
                 orders.BakeryOrders = dal.GetAllBakeryOrders();
             }
             //deli
-            else if (permissionLevel == 3)
+            else if (permissionLevel == 3 || orders.User.IsDeli)
             {
                 orders.DeliOrders = dal.GetAllDeliOrders();
             }
@@ -115,15 +115,43 @@ namespace ApplesOrdering.Controllers
         [HttpPost]
         public ActionResult BakeryOrder(BakeryOrderModel order)
         {
-            if(order.Kitname == null)
+            if (order.Kitname == null)
             {
                 order.Kitname = "n/a";
             }
-          
-            OrdersDAL dal = new OrdersDAL();
-            dal.SaveBakeryOrder(order);
 
-            return RedirectToAction("Index");
+            OrdersDAL dal = new OrdersDAL();
+            if (dal.SaveBakeryOrder(order))
+            {
+                return RedirectToAction("Orders");
+            }
+            else
+            {
+                return View("BakeryOrder", order);
+            }
         }
+
+        public ActionResult DeliOrder()
+        {
+            DeliOrderModel model = new DeliOrderModel();
+
+            return View("DeliOrder", model);
+        }
+
+        [HttpPost]
+        public ActionResult DeliOrder(DeliOrderModel order)
+        {
+            OrdersDAL dal = new OrdersDAL();
+            if (dal.SaveDeliOrder(order))
+            {
+                return RedirectToAction("Orders");
+            }
+            else
+            {
+                return View("DeliOrder", order);
+            }
+
+        }
+
     }
 }

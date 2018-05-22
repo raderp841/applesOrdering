@@ -160,6 +160,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\UpdateOrderController.cs" />
     <Compile Include="DAL\OrdersDAL.cs" />
     <Compile Include="DAL\userInfoDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -214,6 +215,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Orders.cshtml" />
     <Content Include="Views\Home\BakeryOrder.cshtml" />
+    <Content Include="Views\Home\DeliOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

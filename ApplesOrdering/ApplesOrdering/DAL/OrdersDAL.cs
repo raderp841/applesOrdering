@@ -18,7 +18,49 @@ namespace ApplesOrdering.DAL
         private string getAllDeliOrders_SQL = "select * from deliOrder;";
         private string getAllBakeryOrders_SQL = "select * from bakeryOrder;";
         private string getDeliOrderById = "select * from deliOrder where id = @id;";
-       
+        private string changeActivity_SQL = "update deliOrder set isActive = isActive ^ 1 where id = @id;";
+        private string changeActivityBakery_SQL = "update bakeryOrder set isActive = isActive ^ 1 where id = @id;";
+
+
+        public bool ChangeActivityBakery(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(changeActivityBakery_SQL, conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch(SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public bool ChangeActivity(int id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(changeActivity_SQL, conn);
+                    cmd.Parameters.AddWithValue("@id", id);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch(SqlException ex)
+            {
+                throw;
+            }
+        }
 
         public List<BakeryOrderModel> GetAllBakeryOrdersForStore(int storeId)
         {
