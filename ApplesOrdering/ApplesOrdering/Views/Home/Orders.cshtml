@@ -7,29 +7,62 @@
 
 <h1 class="text-center">Orders</h1>
 <hr />
+<form action="/" method="post">
+    <select>
+        <option value="" selected disabled>Choose a store</option>
+    </select>
+</form>
 <h3 class="text-center">Bakery Orders</h3>
-@foreach (var kvp in Model.BakeryOrders)
-{
-    <table style="width: 100%" cellspacing="50">
-        <tr>
-            <th class="text-center">Name</th>
-            <th class="text-center">When Ordered</th>
-            <th class="text-center">Pick Up Time</th>
-            <th class="text-center">Details</th>
-            <th class="text-center">Order Status</th>
-        </tr>
-        <tr>
-            <td class="order-table text-center">@kvp.OrderName</td>
-            <td class="order-table text-center">@kvp.OrderTime.ToString("d")</td>
-            <td class="order-table text-center">@kvp.PickupTime</td>
-            <td class="order-table text-center"><a> View Details Of Order</a></td>
-            <td class="order-table text-center" onclick="changeActivity(@kvp.Id)"><a class="">@if (kvp.IsActive)
-            {<p>Mark Order Complete</p> }
-            else
-            {<p>Make Order Active</p>}</a></td>
-        </tr>
-    </table>
-}
+
+
+<table style="width: 100%" cellspacing="50">
+    <tr>
+        <th class="text-center">Name</th>
+        <th class="text-center">When Ordered</th>
+        <th class="text-center">Pick Up Time</th>
+        <th class="text-center">Details</th>
+        <th class="text-center">Order Status</th>
+    </tr>
+    @foreach (var kvp in Model.BakeryOrders)
+    {
+        if (kvp.IsActive)
+        {
+            <tr class="active-order">
+                <td class="order-table text-center">@kvp.OrderName</td>
+                <td class="order-table text-center">@kvp.OrderTime.ToString("d")</td>
+                <td class="order-table text-center">@kvp.PickupTime</td>
+                <td class="order-table text-center"><a> View Details Of Order</a></td>
+                <td class="order-table text-center" onclick="bakeryChangeActivity(@kvp.Id)">
+                    <a class="">
+                        @if (kvp.IsActive)
+                        {<p>Mark Order Complete</p> }
+                        else
+                        {<p>Make Order Active</p>}
+                    </a>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr class="completed-order">
+                <td class="order-table text-center">@kvp.OrderName</td>
+                <td class="order-table text-center">@kvp.OrderTime.ToString("d")</td>
+                <td class="order-table text-center">@kvp.PickupTime</td>
+                <td class="order-table text-center"><a> View Details Of Order</a></td>
+                <td class="order-table text-center" onclick="bakeryChangeActivity(@kvp.Id)">
+                    <a class="">
+                        @if (kvp.IsActive)
+                        {<p>Mark Order Complete</p> }
+                        else
+                        {<p>Make Order Active</p>}
+                    </a>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
 <hr />
 <h3 class="text-center">Deli Orders</h3>
 <table style="width: 100%" cellspacing="50" class="tabletable">
@@ -56,28 +89,28 @@
                         {<p>Mark Order Complete</p> }
                         else
                         {<p>Make Order Active</p>}
-                </a>
-            </td>
-        </tr>
+                    </a>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr class="completed-order">
+                <td class="order-table text-center">@kvp.OrderName</td>
+                <td class="order-table text-center">@kvp.OrderTime</td>
+                <td class="order-table text-center">@kvp.PickUpTime</td>
+                <td class="order-table text-center"><a onclick="find(@kvp.Id)">View Detials Of Order</a></td>
+                <td class="order-table text-center" onclick="changeActivity(@kvp.Id)">
+                    <a class="">
+                        @if (kvp.IsActive)
+                        {<p>Mark Order Complete</p> }
+                        else
+                        {<p>Make Order Active</p>}
+                    </a>
+                </td>
+            </tr>
+        }
     }
-    else
-    {
-        <tr class="completed-order">
-            <td class="order-table text-center">@kvp.OrderName</td>
-            <td class="order-table text-center">@kvp.OrderTime</td>
-            <td class="order-table text-center">@kvp.PickUpTime</td>
-            <td class="order-table text-center"><a onclick="find(@kvp.Id)">View Detials Of Order</a></td>
-            <td class="order-table text-center" onclick="changeActivity(@kvp.Id)">
-                <a class="">
-                    @if (kvp.IsActive)
-                    {<p>Mark Order Complete</p> }
-                    else
-                    {<p>Make Order Active</p>}
-            </a>
-        </td>
-    </tr>
-}
-}
 </table>
 
 
@@ -158,6 +191,23 @@
         var urlUpdate = updateUri + orderId;
         $.ajax({
             url: urlUpdate,
+            type: 'POST',
+            data: { orderId: orderId },
+            dataType: 'json',
+            success: function (data) {
+            }
+        });
+        window.location.reload();
+    }
+</script>
+
+<script type="text/javascript">
+    var barkeryUpdateUri = '../api/bakeryUpdateOrder/';
+
+    function bakeryChangeActivity(orderId) {
+        var urlBakeryUpdate = barkeryUpdateUri + orderId;
+        $.ajax({
+            url: urlBakeryUpdate,
             type: 'POST',
             data: { orderId: orderId },
             dataType: 'json',

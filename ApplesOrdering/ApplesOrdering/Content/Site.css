@@ -29,10 +29,12 @@ textarea {
 
 .active-order {
     background-color: lightgreen;
+    cursor: pointer;
 }
 
 .completed-order {
     background-color: lightcoral;
+    cursor: pointer;
 }
 
 /* The Modal (background) */

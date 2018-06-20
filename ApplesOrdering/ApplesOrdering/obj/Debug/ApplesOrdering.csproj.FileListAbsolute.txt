@@ -96,3 +96,4 @@ C:\Users\rader\Desktop\Projects\applesOrdering\ApplesOrdering\ApplesOrdering\obj
 C:\Users\rader\Desktop\Projects\applesOrdering\ApplesOrdering\ApplesOrdering\obj\Debug\ApplesOrdering.csproj.CopyComplete
 C:\Users\rader\Desktop\Projects\applesOrdering\ApplesOrdering\ApplesOrdering\obj\Debug\ApplesOrdering.dll
 C:\Users\rader\Desktop\Projects\applesOrdering\ApplesOrdering\ApplesOrdering\obj\Debug\ApplesOrdering.pdb
+C:\Users\rader\Desktop\Projects\applesOrdering\ApplesOrdering\ApplesOrdering\obj\Debug\ApplesOrdering.csprojAssemblyReference.cache
